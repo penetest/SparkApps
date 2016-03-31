@@ -24,7 +24,7 @@ object SparkSqlAgg {
       "2016-3-22,002,www.google.com,1850",
       "2016-3-26,003,www.jd.com,1270",
       "2016-3-24,001,www.ptopenlab.com,1260",
-      "2016-3-22,001,www.apache.org,1550",
+      "2016-3-24,001,www.apache.org,1550",
       "2016-3-28,002,www.baidu.com,1350");
 
     val userDataRdd = sc.parallelize(userData)
@@ -47,6 +47,7 @@ object SparkSqlAgg {
 
     userDatadf.registerTempTable("user")
 
+    sqlContext.sql("select sum(amount) from user where id = 001 and date = \'2016-3-24\'").show()
     //sqlContext.sql("select * from user where amount = ( select max(amount) from user )").show()
     //userDatadf.groupBy("amount").agg('date,max('amount)).show
 
